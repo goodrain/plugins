@@ -1,0 +1,200 @@
+/*
+ *
+ * Copyright 2023 Talkweb Co., Ltd.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * /
+ */
+
+// link
+
+// 移动效果
+.default-hover {
+  transition: all 0.3s ease;
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 26px 40px -24px rgb(0 36 100 / 30%);
+  }
+}
+// btn效果
+.right-hover {
+  position: relative;
+  z-index: 2;
+  &:active {
+    top: 2px;
+  }
+  &:after {
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 100%;
+    top: 0;
+    left: 0;
+    direction: rtl;
+    z-index: -1;
+    transition: all 0.3s ease;
+    background-color: #2467f6;
+    background-image: linear-gradient(90deg, rgb(164, 186, 255) 0%, #6b8dff 74%);
+  }
+  &:hover:after {
+    left: auto;
+    right: 0;
+    width: 100%;
+  }
+}
+.vertical-hover {
+  position: relative;
+  z-index: 2;
+  &:after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 0;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border-radius: 5px;
+    background-color: #eaf818;
+    background-image: linear-gradient(0deg, #f0f5ff 0%, #eff4ff 74%);
+    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5), 7px 7px 20px 0px rgba(0, 0, 0, 0.1),
+      4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  &:hover {
+    color: #000;
+    z-index: 3;
+  }
+  &:hover:after {
+    top: auto;
+    bottom: 0;
+    height: 100%;
+  }
+  &:active {
+    top: 2px;
+  }
+}
+
+// 下接匡样式修改
+.custom-select {
+  cursor: pointer !important;
+
+  .ant-select-selector {
+    cursor: pointer;
+    border: none !important;
+  }
+
+  .ant-select-arrow {
+    display: none;
+  }
+
+  &:hover {
+    .ant-select-selector {
+      background-color: #ececec !important;
+    }
+
+    .ant-select-arrow {
+      display: inline-block;
+    }
+  }
+
+  // 日期
+  &.ant-picker{
+    border: none !important;
+    .ant-picker-input{
+      cursor: pointer;
+      input{
+        cursor: pointer;
+      }
+    }
+    .ant-picker-suffix{
+      display: none;
+    }
+    &:hover {
+      background-color: #ececec !important;
+      .ant-picker-suffix{
+        display: inline-block;
+      }
+    }
+  }
+}
+// tab
+.code-tab {
+  margin-top:0;
+  padding: 15px 15px 0 !important;
+  background-color: #fff;
+  border-top-right-radius: 4px !important;
+  border-top-left-radius: 4px !important;
+
+  .ant-tabs-nav {
+    margin-bottom: 10px;
+
+    &::before {
+      border: none !important;
+    }
+  }
+
+  .ant-tabs-nav-wrap {
+    .ant-tabs-nav-list {
+      background: #f1f9ff;
+      border-radius: 15px;
+
+      .ant-tabs-tab {
+        margin: 0;
+        padding: 5px 15px;
+
+        &.ant-tabs-tab-active {
+          .ant-tabs-tab-btn {
+            color: #fff;
+          }
+        }
+
+        .ant-tabs-tab-btn {
+          position: relative;
+          z-index: 3;
+          background: none;
+        }
+      }
+
+      .ant-tabs-ink-bar {
+        top: 0;
+        background: #08153a;
+        border-radius: 15px;
+        height: 100%;
+      }
+    }
+  }
+}
+// radio 重写
+.ant-radio-button-wrapper{
+  &:hover{
+    color:#0070FF !important;
+  }
+  &.ant-radio-button-wrapper-checked{
+    &:hover{
+      color:#ffffff !important;
+    }
+  }
+}
+.ant-radio-group-solid{
+  .ant-radio-button-wrapper-checked{
+    &:not(.ant-radio-button-wrapper-disabled){
+      background: #08153a !important;
+      border-color: #08153a !important;
+      &:hover{
+        color:#fff !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,71 @@
+/*
+ *
+ * Copyright 2023 Talkweb Co., Ltd.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * /
+ */
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+// =================================
+// ==============scrollbar==========
+// =================================
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 8px;
+}
+
+// ::-webkit-scrollbar-track {
+//   background: transparent;
+// }
+
+::-webkit-scrollbar-track {
+  background-color: rgb(0 0 0 / 5%);
+}
+
+::-webkit-scrollbar-thumb {
+  // background: rgba(0, 0, 0, 0.6);
+  background-color: rgb(144 147 153 / 30%);
+  // background-color: rgba(144, 147, 153, 0.3);
+  border-radius: 2px;
+  box-shadow: inset 0 0 6px rgb(0 0 0 / 20%);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: @border-color-dark;
+}
+
+// =================================
+// ==============nprogress==========
+// =================================
+#nprogress {
+  pointer-events: none;
+
+  .bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+    width: 100%;
+    height: 2px;
+    background-color: @primary-color;
+    opacity: 0.75;
+  }
+}

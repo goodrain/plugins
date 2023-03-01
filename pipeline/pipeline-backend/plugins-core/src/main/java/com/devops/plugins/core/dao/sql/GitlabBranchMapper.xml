@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ /*
+  ~ Copyright 2023 Talkweb Co., Ltd.
+  ~
+  ~ This program is free software; you can redistribute it and/or
+  ~ modify it under the terms of the GNU Lesser General Public
+  ~ License as published by the Free Software Foundation; either
+  ~ version 3 of the License, or (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  ~ Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public License
+  ~ along with this program; if not, write to the Free Software Foundation,
+  ~ Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+  ~ */
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devops.plugins.core.dao.GitlabBranchMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.devops.plugins.core.dao.entity.GitlabBranchEntity">
+	    <result column="id" property="id" />
+        <result column="app_service_id" property="appServiceId" />
+        <result column="user_id" property="userId" />
+        <result column="branch_name" property="branchName" />
+        <result column="origin_branch" property="originBranch" />
+        <result column="issue_id" property="issueId" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_by" property="updateBy" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_flag" property="delFlag" />
+        <result column="version" property="version" />
+        <result column="commit_user_id" property="commitUserId" />
+        <result column="commit_user_name" property="commitUserName" />
+        <result column="commit_msg" property="commitMsg" />
+        <result column="commit_date" property="commitDate" />
+        <result column="commit_sha" property="commitSha" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        app_service_id,
+        user_id,
+        branch_name,
+        origin_branch,
+        issue_id,
+        create_by,
+        create_time,
+        update_by,
+        update_time,
+        del_flag,
+        version,
+        commit_user_id,
+        commit_user_name,
+        commit_msg,
+        commit_date,
+        commit_sha
+    </sql>
+
+    <!-- 通用查询条件 -->
+	<sql id="whereParam">
+		<where>
+			<if test="query.branchName != null ">
+                and (gitlabBranch.branch_name like CONCAT('%',#{query.branchName},'%'))
+			</if>
+            <if test="query.id != null ">
+                and gitlabBranch.id = #{query.id}
+            </if>
+            <if test="query.appServiceId != null ">
+                and gitlabBranch.app_service_id = #{query.appServiceId}
+            </if>
+		</where>
+	</sql>
+
+	<!-- 通用更新判断 -->
+	<sql id="updateSelective">
+	    <set>
+            <if test="entity.appServiceId!=null">
+                app_service_id = #{entity.appServiceId},
+            </if>
+            <if test="entity.userId!=null">
+                user_id = #{entity.userId},
+            </if>
+            <if test="entity.branchName!=null">
+                branch_name = #{entity.branchName},
+            </if>
+            <if test="entity.originBranch!=null">
+                origin_branch = #{entity.originBranch},
+            </if>
+            <if test="entity.issueId!=null">
+                issue_id = #{entity.issueId},
+            </if>
+            <if test="entity.createBy!=null">
+                create_by = #{entity.createBy},
+            </if>
+            <if test="entity.createTime!=null">
+                create_time = #{entity.createTime},
+            </if>
+            <if test="entity.updateBy!=null">
+                update_by = #{entity.updateBy},
+            </if>
+            <if test="entity.updateTime!=null">
+                update_time = #{entity.updateTime},
+            </if>
+            <if test="entity.delFlag!=null">
+                del_flag = #{entity.delFlag},
+            </if>
+            <if test="entity.version!=null">
+                version = #{entity.version},
+            </if>
+            <if test="entity.commitUserId!=null">
+                commit_user_id = #{entity.commitUserId},
+            </if>
+            <if test="entity.commitUserName!=null">
+                commit_user_name = #{entity.commitUserName},
+            </if>
+            <if test="entity.commitMsg!=null">
+                commit_msg = #{entity.commitMsg},
+            </if>
+            <if test="entity.commitDate!=null">
+                commit_date = #{entity.commitDate},
+            </if>
+            <if test="entity.commitSha!=null">
+                commit_sha = #{entity.commitSha},
+            </if>
+        </set>
+    </sql>
+
+    <!-- 统计 -->
+	<select id="findCount" parameterType="com.devops.plugins.core.dao.entity.GitlabBranchEntity" resultType="long">
+		select count(*) as c from devops_gitlab_branch as gitlabBranch
+		<include refid="whereParam"></include>
+	</select>
+
+    <!-- 分页 -->
+	<select id="findPage" parameterType="com.baomidou.mybatisplus.extension.plugins.pagination.Page" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"></include>
+		from
+		devops_gitlab_branch as gitlabBranch
+		<include refid="whereParam"></include>
+		order by gitlabBranch.create_time asc
+	</select>
+
+    <!-- 列表 -->
+	<select id="findList"
+		parameterType="com.devops.plugins.core.dao.entity.GitlabBranchEntity" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"></include>
+		from
+		devops_gitlab_branch as gitlabBranch
+		<include refid="whereParam"></include>
+		order by gitlabBranch.create_time desc
+	</select>
+
+	<!-- 根据id动态更新传入了值的字段 -->
+	<update id="updateByPrimaryKeySelective">
+	    update devops_gitlab_branch
+        <include refid="updateSelective"></include>
+        where id=#{entity.id}
+	</update>
+</mapper>

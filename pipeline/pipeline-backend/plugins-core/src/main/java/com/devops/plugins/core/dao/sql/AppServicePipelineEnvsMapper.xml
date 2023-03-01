@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ /*
+  ~ Copyright 2023 Talkweb Co., Ltd.
+  ~
+  ~ This program is free software; you can redistribute it and/or
+  ~ modify it under the terms of the GNU Lesser General Public
+  ~ License as published by the Free Software Foundation; either
+  ~ version 3 of the License, or (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  ~ Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public License
+  ~ along with this program; if not, write to the Free Software Foundation,
+  ~ Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+  ~ */
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devops.plugins.core.dao.AppServicePipelineEnvsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.devops.plugins.core.dao.entity.AppServicePipelineEnvsEntity">
+        <id column="id" property="id"/>
+        <result column="app_service_id" property="appServiceId" />
+        <result column="branch" property="branch" />
+        <result column="module" property="module" />
+        <result column="env_key" property="envKey" />
+        <result column="env_value" property="envValue" />
+        <result column="description" property="description" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_by" property="updateBy" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_flag" property="delFlag" />
+        <result column="version" property="version" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        app_service_id,
+        branch,
+        `module`,
+        env_key,
+        env_value,
+        description,
+        create_by,
+        create_time,
+        update_by,
+        update_time,
+        del_flag,
+        version
+    </sql>
+
+    <!-- 通用查询条件 -->
+	<sql id="whereParam">
+		<where>
+		    <!-- 判断逻辑删除，如果需要请自行放开，不需要请删除
+		    <if test="query.del_flag != null">
+                and appServicePipelineEnvs.del_flag = #{query.del_flag}
+            </if>
+            -->
+            <if test="query.appServiceId != null">
+                and appServicePipelineEnvs.app_service_id = #{query.appServiceId}
+            </if>
+            <if test="query.branch != null">
+                and appServicePipelineEnvs.branch = #{query.branch}
+            </if>
+            <if test="query.module != null">
+                and appServicePipelineEnvs.module = #{query.module}
+            </if>
+            <if test="query.envKey != null">
+                and appServicePipelineEnvs.env_key = #{query.envKey}
+            </if>
+            <if test="query.envValue != null">
+                and appServicePipelineEnvs.env_value = #{query.envValue}
+            </if>
+            <if test="query.description != null">
+                and appServicePipelineEnvs.description = #{query.description}
+            </if>
+		</where>
+	</sql>
+
+    <!-- 统计 -->
+	<select id="findCount" parameterType="com.devops.plugins.core.dao.entity.AppServicePipelineEnvsEntity" resultType="long">
+		select count(*) as c from devops_app_service_pipeline_envs as appServicePipelineEnvs
+		<include refid="whereParam"></include>
+	</select>
+
+    <!-- 分页 -->
+	<select id="findPage" parameterType="com.baomidou.mybatisplus.extension.plugins.pagination.Page" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"></include>
+		from
+		devops_app_service_pipeline_envs as appServicePipelineEnvs
+		<include refid="whereParam"></include>
+		order by appServicePipelineEnvs.create_time desc
+	</select>
+
+    <!-- 列表 -->
+	<select id="findList"
+		parameterType="com.devops.plugins.core.dao.entity.AppServicePipelineEnvsEntity" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"></include>
+		from
+		devops_app_service_pipeline_envs as appServicePipelineEnvs
+		<include refid="whereParam"></include>
+		order by appServicePipelineEnvs.create_time desc
+	</select>
+
+	<!-- 根据id动态更新传入了值的字段 -->
+	<update id="updateByPrimaryKeySelective">
+	    update devops_app_service_pipeline_envs
+	    <set>
+            <if test="entity.app_service_id != null">
+                app_service_id = #{entity.appServiceId},
+            </if>
+            <if test="entity.branch != null">
+                branch = #{entity.branch},
+            </if>
+            <if test="entity.module != null">
+                module = #{entity.module},
+            </if>
+            <if test="entity.env_key != null">
+                env_key = #{entity.envKey},
+            </if>
+            <if test="entity.env_value != null">
+                env_value = #{entity.envValue},
+            </if>
+            <if test="entity.description != null">
+                description = #{entity.description},
+            </if>
+        </set>
+        where id=#{entity.id}
+	</update>
+</mapper>

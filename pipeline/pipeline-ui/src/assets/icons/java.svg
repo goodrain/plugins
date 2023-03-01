@@ -1,0 +1,22 @@
+<?xml version="1.0" standalone="no"?><!--
+  - /*
+  - Copyright 2023 Talkweb Co., Ltd.
+  -
+  - This program is free software; you can redistribute it and/or
+  - modify it under the terms of the GNU Lesser General Public
+  - License as published by the Free Software Foundation; either
+  - version 3 of the License, or (at your option) any later version.
+  -
+  - This program is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  - Lesser General Public License for more details.
+  -
+  - You should have received a copy of the GNU Lesser General Public License
+  - along with this program; if not, write to the Free Software Foundation,
+  - Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+  - */
+  -->
+
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1660728206382" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4463" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><defs><style type="text/css">@font-face { font-family: feedback-iconfont; src: url("//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff2?t=1630033759944") format("woff2"), url("//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff?t=1630033759944") format("woff"), url("//at.alicdn.com/t/font_1031158_u69w8yhxdu.ttf?t=1630033759944") format("truetype"); }
+</style></defs><path d="M611.9936 11.9808s103.7312 103.7824-98.4064 263.3216C388.3008 374.272 434.688 440.32 479.232 503.7568c13.056 18.5856 25.9584 36.9664 34.304 55.8592-94.5664-85.3504-163.9936-160.4608-117.4528-230.4 22.784-34.1504 58.88-62.464 95.488-91.0848 73.3184-57.3952 148.3264-116.1728 120.4224-226.1504z" fill="#2467F6" p-id="4464"></path><path d="M558.5408 489.2672c48.128 55.4496-12.6464 105.3696-12.6464 105.3696s122.2144-63.1296 66.048-142.1824c-2.2016-3.1744-4.4544-6.2464-6.656-9.2672-48.7424-67.7376-76.5952-106.496 131.7376-227.328 0 0-341.7088 85.3504-178.4832 273.408zM379.8016 713.1136c-65.3824-6.7584-22.5792-38.4-22.5792-38.4-169.0624 56.064 94.0544 119.7056 330.3424 50.6368-25.088-8.8576-41.1136-25.088-41.1136-25.088-115.456 22.272-182.1696 21.5552-266.6496 12.8zM408.2688 813.6704c-65.3312-7.5264-27.136-29.696-27.136-29.696-153.4976 42.9056 93.3376 131.4816 288.768 47.7184-32.0512-12.4416-54.9376-26.7776-54.9376-26.7776-87.1936 16.4864-127.5904 17.7664-206.6944 8.704z" fill="#2467F6" p-id="4465"></path><path d="M785.92 906.0352c59.2896-17.9712 31.0272-41.216 31.0272-41.216 103.3728 46.592-224.512 140.288-622.8992 75.6736-146.1248-23.6544 70.2976-106.3424 109.9264-78.4384 0 0-12.544-0.8704-34.4576 3.84-20.992 4.5056-87.808 26.0096-52.1728 41.5232 99.072 43.1104 455.7312 32.768 568.5248-1.3824zM399.4624 561.4592s-181.4528 43.0592-64.256 58.7264c49.4592 6.656 148.0704 5.12 239.9744-2.56 75.0592-6.3488 150.4768-19.8144 150.4768-19.8144s-26.4704 11.3152-45.6192 24.4224c-184.2688 48.4352-540.16 25.9072-437.7088-23.6544 86.6816-41.8816 157.1328-37.12 157.1328-37.12zM765.1328 565.1456c60.416-12.6464 147.0464 80.896-40.2432 178.176a16.3328 16.3328 0 0 1-3.7376 4.9664c250.112-65.792 158.1568-231.7824 38.5536-189.7472-10.496 3.7376-15.9744 12.288-15.9744 12.288s6.6048-2.6112 21.4016-5.6832z" fill="#2467F6" p-id="4466"></path><path d="M880.1792 915.6096c-6.5024 85.0944-282.5728 102.9632-462.336 91.4432-117.248-7.5264-140.8-26.3168-141.1072-26.5728 112.2304 18.4832 301.4656 21.8624 454.912-7.0144 135.9872-25.6 148.5312-57.856 148.5312-57.856z" fill="#2467F6" p-id="4467"></path></svg>

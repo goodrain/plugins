@@ -1,0 +1,57 @@
+stages:
+  - build
+  - docker
+  - devops
+
+variables:
+  GOPATH: $CI_PROJECT_DIR/.go
+
+build:
+  tags:
+    - wutong-devops
+  image: golang:latest
+  stage: build
+  script:
+    - mkdir -p .go
+    - go env -w GO111MODULE=on
+    - go env -w GOPROXY="https://goproxy.io,direct"
+    - CGO_ENABLED=0 GOOS=linux go build -o app  main.go
+  artifacts:
+    paths:
+      - app
+  cache:
+    paths:
+      - .go/pkg/mod/
+  only:
+    variables:
+      - ${{auto.build}} == "true"
+
+docker:
+  tags:
+    - wutong-devops
+  image: swr.cn-north-4.myhuaweicloud.com/wutong/docker:19.03.13
+  stage: docker
+  script:
+    - docker login -u ${HARBOR_USERNAME} -p ${HARBOR_PASSWORD} ${HARBOR_SCHEMAL}//${HARBOR_URL}
+    - docker build -t  ${HARBOR_URL}/${TEAM_CODE}/{{service.code}}:${DEVOPS_VERSION} .
+    - docker push ${HARBOR_URL}/${TEAM_CODE}/{{service.code}}:${DEVOPS_VERSION}
+  only:
+    variables:
+      - ${{auto.build}} == "true"
+
+ devops:
+    tags:
+      - wutong-devops
+    image: swr.cn-north-4.myhuaweicloud.com/wutong/docker:19.03.13
+    stage: devops
+    script:
+     - http_status_code=`curl -o /dev/null -s -m 10 --connect-timeout 10 -w %{http_code} "${GATEWAY}/hook/ci?gitlabProjectId=${CI_PROJECT_ID}&version=${DEVOPS_VERSION}&commit=${CI_COMMIT_SHA}&branch=${CI_COMMIT_REF_SLUG}"`
+     - |
+       if [ "$http_status_code" != "200" ]; then
+       echo $http_status_code
+       echo "上传应用服务版本失败"
+       exit 1
+       fi
+    only:
+     variables:
+       - ${{auto.build}} == "true"- $xffyw == "true"
