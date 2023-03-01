@@ -1,0 +1,220 @@
+/*
+ *
+ * Copyright 2023 Talkweb Co., Ltd.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * /
+ */
+
+package com.devops.plugins.gitlab.service;
+
+import org.gitlab4j.api.models.*;
+
+import java.util.List;
+
+public interface GroupService {
+    /**
+     * 查询所有组
+     *
+     * @return List
+     */
+    List<Group> listGroups();
+
+    /**
+     * 查询所有组
+     *
+     * @return List
+     */
+    List<Group> listGroupsWithParam(Integer userId, Boolean owned, String search, List<Integer> skipGroups);
+
+
+    /**
+     * 创建组
+     *
+     * @param group  组对象
+     * @param userId 用户名
+     * @return Group
+     */
+    Group createGroup(Group group, Integer userId);
+
+
+    /**
+     * 更新组
+     *
+     * @param groupId 组对象Id
+     * @param userId  用户名
+     * @param group   组对象
+     * @return Group
+     */
+    Group updateGroup(Integer groupId, Integer userId, Group group);
+
+    /**
+     * 删除组
+     *
+     * @param groupId 组对象Id
+     */
+    void deleteGroup(Integer groupId, Integer userId);
+
+    /**
+     * 查询组中的成员
+     *
+     * @param groupId 组对象Id
+     * @return List
+     */
+    List<Member> listMember(Integer groupId);
+
+    /**
+     * 根据用户ID获得组成员信息
+     *
+     * @param groupId 组对象Id
+     * @param userId  用户Id
+     * @return Member
+     */
+    Member queryMemberByUserId(Integer groupId, Integer userId);
+
+    /**
+     * 增加组成员
+     *
+     * @param groupId 组对象Id
+     * @param member  成员信息
+     * @return Member
+     */
+    Member createMember(Integer groupId, Member member);
+
+    /**
+     * 更新组成员
+     *
+     * @param groupId 组对象Id
+     * @param member  成员信息
+     * @return Member
+     */
+    Member updateMember(Integer groupId,  Member member);
+
+    /**
+     * 移除组成员
+     *
+     * @param groupId 组对象Id
+     * @param userId  成员信息
+     */
+    void deleteMember(Integer groupId, Integer userId);
+
+    /**
+     * 获取项目列表
+     *
+     * @param groupId 组对象Id
+     * @param userId  用户名
+     * @param page
+     * @param perPage
+     * @return List
+     */
+    List<Project> listProjects(Integer groupId, Integer userId, Integer page, Integer perPage);
+
+    /**
+     * 根据组名查询组
+     *
+     * @param groupName 组名
+     * @param userId    用户Id
+     * @return group
+     */
+    Group queryGroupByName(String groupName, Integer userId);
+
+    /**
+     * 查出组下所有的AccessRequest
+     *
+     * @param groupId 组id
+     * @return 所有的AccessRequest列表
+     */
+    List<AccessRequest> listAccessRequests(Integer groupId);
+
+    /**
+     * 拒绝组下某个人的AccessRequest
+     *
+     * @param groupId          组id
+     * @param userIdToBeDenied 被拒绝的人的id
+     */
+    void denyAccessRequest(Integer groupId, Integer userIdToBeDenied);
+
+
+    /**
+     * 查询组Variable
+     *
+     * @param groupId 组id
+     * @param userId  用户id
+     * @return list
+     */
+    List<Variable> getGroupVariable(Integer groupId, Integer userId);
+
+
+    /**
+     * 增加组ci环境变量
+     *
+     * @param groupId    组id
+     * @param key        变量key
+     * @param value      变量值
+     * @param protecteds 变量是否保护
+     * @param userId     用户Id
+     * @return
+     */
+    Variable createVariable(Integer groupId,
+                            String key,
+                            String value,
+                            boolean protecteds,
+                            Integer userId);
+
+    /**
+     * 删除组ci环境变量
+     *
+     * @param groupId 组id
+     * @param key     变量key
+     * @param userId  用户id
+     */
+    void deleteVariable(Integer groupId,
+                        String key,
+                        Integer userId);
+
+    /**
+     * 批量删除组ci环境变量
+     *
+     * @param groupId 组id
+     * @param keys    变量keys
+     * @param userId  用户id
+     */
+    void batchDeleteVariable(Integer groupId,
+                             List<String> keys,
+                             Integer userId);
+
+    /**
+     * 批量增加组ci环境变量
+     *
+     * @param groupId 组id
+     * @param list    变量信息
+     * @param userId  用户id
+     * @return
+     */
+    List<Variable> batchCreateVariable(Integer groupId,
+                                       List<Variable> list,
+                                       Integer userId);
+
+    /**
+     * 获取项目列表
+     *
+     * @param groupId 组对象Id
+     * @param userId  用户Id
+     * @return List
+     */
+    List<Project> listProjects(Integer groupId, Integer userId, Boolean owned, String search);
+
+
+}

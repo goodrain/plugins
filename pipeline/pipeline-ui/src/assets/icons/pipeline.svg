@@ -1,0 +1,22 @@
+<?xml version="1.0" standalone="no"?><!--
+  - /*
+  - Copyright 2023 Talkweb Co., Ltd.
+  -
+  - This program is free software; you can redistribute it and/or
+  - modify it under the terms of the GNU Lesser General Public
+  - License as published by the Free Software Foundation; either
+  - version 3 of the License, or (at your option) any later version.
+  -
+  - This program is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  - Lesser General Public License for more details.
+  -
+  - You should have received a copy of the GNU Lesser General Public License
+  - along with this program; if not, write to the Free Software Foundation,
+  - Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+  - */
+  -->
+
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1660531959632" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2927" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><defs><style type="text/css">@font-face { font-family: feedback-iconfont; src: url("//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff2?t=1630033759944") format("woff2"), url("//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff?t=1630033759944") format("woff"), url("//at.alicdn.com/t/font_1031158_u69w8yhxdu.ttf?t=1630033759944") format("truetype"); }
+</style></defs><path d="M312.896 14.208a149.312 149.312 0 1 0 0 298.688 149.312 149.312 0 0 0 0-298.688z" fill="#08153A" p-id="2928"></path><path d="M785.792 113.792c127.68 0 224 95.488 224 224 0 124.16-90.048 217.6-211.392 223.68l-12.608 0.32H238.208c-72.896 0-124.416 51.136-124.416 124.416 0 69.824 46.72 119.552 114.176 124.16l10.24 0.32h373.376v99.52H238.208c-127.68 0-224-95.488-224-224 0-124.16 90.048-217.6 211.392-223.68l12.608-0.32h547.584c72.896 0 124.416-51.136 124.416-124.416 0-69.824-46.72-119.552-114.176-124.16l-10.24-0.32H412.416V113.792h373.376zM960 810.688a49.792 49.792 0 0 1 6.784 99.072l-6.784 0.448h-149.312a49.792 49.792 0 0 1-6.784-99.072l6.784-0.448H960zM213.312 113.728a49.792 49.792 0 0 1 6.784 99.2l-6.784 0.384H64a49.792 49.792 0 0 1-6.784-99.072L64 113.792h149.312z" fill="#08153A" opacity=".4" p-id="2929"></path><path d="M711.104 711.104a149.312 149.312 0 1 0 0 298.688 149.312 149.312 0 0 0 0-298.688z" fill="#08153A" p-id="2930"></path></svg>

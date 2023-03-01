@@ -1,0 +1,22 @@
+<?xml version="1.0" standalone="no"?><!--
+  - /*
+  - Copyright 2023 Talkweb Co., Ltd.
+  -
+  - This program is free software; you can redistribute it and/or
+  - modify it under the terms of the GNU Lesser General Public
+  - License as published by the Free Software Foundation; either
+  - version 3 of the License, or (at your option) any later version.
+  -
+  - This program is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  - Lesser General Public License for more details.
+  -
+  - You should have received a copy of the GNU Lesser General Public License
+  - along with this program; if not, write to the Free Software Foundation,
+  - Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+  - */
+  -->
+
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1659144864809" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2338" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="14"><defs><style type="text/css">@font-face { font-family: feedback-iconfont; src: url("//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff2?t=1630033759944") format("woff2"), url("//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff?t=1630033759944") format("woff"), url("//at.alicdn.com/t/font_1031158_u69w8yhxdu.ttf?t=1630033759944") format("truetype"); }
+</style></defs><path d="M511.893391 0c23.903543 0 43.713513 17.543885 47.076091 40.570233l0.511697 7.017554V975.878586a47.587787 47.587787 0 0 1-94.663878 7.017554l-0.511697-7.017554V47.514688C464.305604 21.27196 485.577564 0 511.893391 0z" fill="#A4ADC5" p-id="2339"></path><path d="M284.334587 244.298594c23.391846-43.640413 89.546911-27.046822 89.546911 22.441553v519.956883c0 26.315827-21.34506 47.587787-47.587787 47.587787H47.857641a47.587787 47.587787 0 0 1-41.959124-70.02934zM649.905284 266.813246c0-49.561474 66.155065-66.155065 89.546912-22.514652l278.43607 519.956883a47.587787 47.587787 0 0 1-41.959124 70.02934H697.493071a47.587787 47.587787 0 0 1-47.514687-47.514688z" fill="#08153A" p-id="2340"></path></svg>

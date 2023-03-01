@@ -1,0 +1,72 @@
+/*
+ *
+ * Copyright 2023 Talkweb Co., Ltd.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * /
+ */
+
+.bg-white {
+  background-color: @component-background !important;
+}
+
+html[data-theme='light'] {
+  .text-secondary {
+    color: rgb(0 0 0 / 45%);
+  }
+
+  .ant-alert-success {
+    background-color: #f6ffed;
+    border: 1px solid #b7eb8f;
+  }
+
+  .ant-alert-error {
+    background-color: #fff2f0;
+    border: 1px solid #ffccc7;
+  }
+
+  .ant-alert-warning {
+    background-color: #fffbe6;
+    border: 1px solid #ffe58f;
+  }
+
+  :not(:root):fullscreen::backdrop {
+    background-color: @layout-body-background !important;
+  }
+}
+
+[data-theme='dark'] {
+  .text-secondary {
+    color: #8b949e;
+  }
+
+  .ant-card-grid-hoverable:hover {
+    box-shadow: 0 3px 6px -4px rgb(0 0 0 / 48%), 0 6px 16px 0 rgb(0 0 0 / 32%),
+      0 9px 28px 8px rgb(0 0 0 / 20%);
+  }
+
+  .ant-card-grid {
+    box-shadow: 1px 0 0 0 #434343, 0 1px 0 0 #434343, 1px 1px 0 0 #434343, 1px 0 0 0 #434343 inset,
+      0 1px 0 0 #434343 inset;
+  }
+
+  .ant-calendar-selected-day .ant-calendar-date {
+    color: rgb(0 0 0 / 80%);
+  }
+
+  .ant-select-tree li .ant-select-tree-node-content-wrapper.ant-select-tree-node-selected {
+    color: rgb(0 0 0 / 90%);
+  }
+}

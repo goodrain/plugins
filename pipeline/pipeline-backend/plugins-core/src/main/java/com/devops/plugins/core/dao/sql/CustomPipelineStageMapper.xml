@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ /*
+  ~ Copyright 2023 Talkweb Co., Ltd.
+  ~
+  ~ This program is free software; you can redistribute it and/or
+  ~ modify it under the terms of the GNU Lesser General Public
+  ~ License as published by the Free Software Foundation; either
+  ~ version 3 of the License, or (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  ~ Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public License
+  ~ along with this program; if not, write to the Free Software Foundation,
+  ~ Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+  ~ */
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devops.plugins.core.dao.CustomPipelineStageMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.devops.plugins.core.dao.entity.CustomPipelineStageEntity">
+	    <result column="id" property="id" />
+        <result column="pipeline_id" property="pipelineId" />
+        <result column="name" property="name" />
+        <result column="code" property="code" />
+        <result column="stage_order" property="stageOrder" />
+        <result column="stage" property="stage" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_by" property="updateBy" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_flag" property="delFlag" />
+        <result column="version" property="version" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        pipeline_id,
+        name,
+        code,
+        stage_order,
+        stage,
+        create_by,
+        create_time,
+        update_by,
+        update_time,
+        del_flag,
+        version
+    </sql>
+
+    <!-- 通用查询条件 -->
+	<sql id="whereParam">
+		<where>
+		    <!-- 判断逻辑删除，如果需要请自行放开，不需要请删除
+		    <if test="query.del_flag != null">
+                and customPipelineStage.del_flag = #{query.del_flag}
+            </if>
+            -->
+            <if test="query.pipelineId != null">
+                and customPipelineStage.pipeline_id = #{query.pipelineId}
+            </if>
+            <if test="query.name != null">
+                and customPipelineStage.name = #{query.name}
+            </if>
+            <if test="query.code != null">
+                and customPipelineStage.code = #{query.code}
+            </if>
+            <if test="query.stageOrder != null">
+                and customPipelineStage.stage_order = #{query.stageOrder}
+            </if>
+            <if test="query.stage != null">
+                and customPipelineStage.stage = #{query.stage}
+            </if>
+		</where>
+	</sql>
+
+    <!-- 统计 -->
+	<select id="findCount" parameterType="com.devops.plugins.core.dao.entity.CustomPipelineStageEntity" resultType="long">
+		select count(*) as c from devops_custom_pipeline_stage as customPipelineStage
+		<include refid="whereParam"></include>
+	</select>
+
+    <!-- 分页 -->
+	<select id="findPage" parameterType="com.baomidou.mybatisplus.extension.plugins.pagination.Page" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"></include>
+		from
+		devops_custom_pipeline_stage as customPipelineStage
+		<include refid="whereParam"></include>
+		order by customPipelineStage.create_time desc
+	</select>
+
+    <!-- 列表 -->
+	<select id="findList"
+		parameterType="com.devops.plugins.core.dao.entity.CustomPipelineStageEntity" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"></include>
+		from
+		devops_custom_pipeline_stage as customPipelineStage
+		<include refid="whereParam"></include>
+		order by customPipelineStage.create_time desc
+	</select>
+
+	<!-- 根据id动态更新传入了值的字段 -->
+	<update id="updateByPrimaryKeySelective">
+	    update devops_custom_pipeline_stage
+	    <set>
+            <if test="entity.pipelineId != null">
+                pipeline_id = #{entity.pipelineId},
+            </if>
+            <if test="entity.name != null">
+                name = #{entity.name},
+            </if>
+            <if test="entity.code != null">
+                code = #{entity.code},
+            </if>
+            <if test="entity.stageOrder != null">
+                stage_order = #{entity.stageOrder},
+            </if>
+            <if test="entity.stage != null">
+                stage = #{entity.stage},
+            </if>
+        </set>
+        where id=#{entity.id}
+	</update>
+</mapper>

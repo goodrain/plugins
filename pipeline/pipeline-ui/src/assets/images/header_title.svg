@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - /*
+  - Copyright 2023 Talkweb Co., Ltd.
+  -
+  - This program is free software; you can redistribute it and/or
+  - modify it under the terms of the GNU Lesser General Public
+  - License as published by the Free Software Foundation; either
+  - version 3 of the License, or (at your option) any later version.
+  -
+  - This program is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  - Lesser General Public License for more details.
+  -
+  - You should have received a copy of the GNU Lesser General Public License
+  - along with this program; if not, write to the Free Software Foundation,
+  - Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+  - */
+  -->
+
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>菜单-实色</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="代码管理-2" transform="translate(-633.000000, -18.000000)">
+            <g id="菜单-实色" transform="translate(633.000000, 18.000000)">
+                <rect id="矩形" fill="#E9F1F7" x="0" y="0" width="20" height="20" rx="2"></rect>
+                <g transform="translate(4.000000, 4.000000)" fill="#08153A" fill-rule="nonzero" id="形状">
+                    <path d="M4.16117647,0 L1.05882353,0 C0.474705882,0 0,0.474705882 0,1.05882353 L0,4.16117647 C0,4.74529412 0.474705882,5.22 1.05882353,5.22 L4.16117647,5.22 C4.74529412,5.22 5.22,4.74529412 5.22,4.16117647 L5.22,1.05882353 C5.22,0.474705882 4.74529412,0 4.16117647,0 L4.16117647,0 Z M4.16117647,6.77647059 L1.05882353,6.77647059 C0.474705882,6.77647059 0,7.25117647 0,7.83529412 L0,10.9376471 C0,11.5217647 0.474705882,11.9964706 1.05882353,11.9964706 L4.16117647,11.9964706 C4.74529412,11.9964706 5.22,11.5217647 5.22,10.9376471 L5.22,7.83529412 C5.22,7.25294118 4.74529412,6.77647059 4.16117647,6.77647059 L4.16117647,6.77647059 Z M10.9411765,6.77647059 C11.5252941,6.77647059 12,7.25294118 12,7.83529412 L12,7.83529412 L12,10.9376471 C12,11.5217647 11.5252941,11.9964706 10.9411765,11.9964706 L10.9411765,11.9964706 L7.83882353,11.9964706 C7.25470588,11.9964706 6.78,11.5217647 6.78,10.9376471 L6.78,10.9376471 L6.78,7.83529412 C6.78,7.25117647 7.25470588,6.77647059 7.83882353,6.77647059 L7.83882353,6.77647059 Z M10.9411765,0 C11.5252941,0 12,0.474705882 12,1.05882353 L12,1.05882353 L12,4.16117647 C12,4.74529412 11.5252941,5.22 10.9411765,5.22 L10.9411765,5.22 L7.83882353,5.22 C7.25470588,5.22 6.78,4.74529412 6.78,4.16117647 L6.78,4.16117647 L6.78,1.05882353 C6.78,0.474705882 7.25470588,0 7.83882353,0 L7.83882353,0 Z"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

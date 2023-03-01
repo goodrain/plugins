@@ -1,0 +1,42 @@
+stages:
+- build
+- docker
+variables:
+  ORG: wutong
+  REPOSITORY_USERNAME: cn-north-4@5RLGVPX17ERVGKALVGDB
+  REPOSITORY_PASSWORD: f2e6000ecfeb70c6c7714c612bd7f2bb22aef92b786d9fec727a19445412b864
+  REPOSITORY_URL: swr.cn-north-4.myhuaweicloud.com
+build:
+  image: maven:3.6.3-openjdk-8
+  stage: build
+  script:
+  - mvn clean -U package  -DskipTests=true
+  tags:
+  - wutong-devops
+  only:
+    variables:
+    - $plugins == "true"
+  artifacts:
+    paths:
+    - plugins-core/target/app.jar
+docker:
+  image: swr.cn-north-4.myhuaweicloud.com/wutong/docker:19.03.13
+  stage: docker
+  script:
+  - mkdir target
+  - cp plugins-core/target/app.jar target/app.jar
+  - docker login -u ${REPOSITORY_USERNAME} -p ${REPOSITORY_PASSWORD} ${REPOSITORY_URL}
+  - docker build -t  ${REPOSITORY_URL}/${ORG}/plugins:1.0 .
+  - docker push ${REPOSITORY_URL}/${ORG}/plugins:1.0
+  - |-
+    http_status_code=`curl -o /dev/null -s -m 10 --connect-timeout 10 -w %{http_code} "${GATEWAY}/hook/ci?gitlabProjectId=${CI_PROJECT_ID}&version=${DEVOPS_VERSION}&commit=${CI_COMMIT_SHA}&branch=${CI_COMMIT_REF_SLUG}&module=${SUB_SERVICE}"`
+          if [ "$http_status_code" != "200" ]; then
+          echo $http_status_code
+          echo "上传应用服务版本失败"
+          exit 1
+          fi
+  tags:
+  - wutong-devops
+  only:
+    variables:
+    - $plugins == "true"

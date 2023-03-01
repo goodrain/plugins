@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - /*
+  - Copyright 2023 Talkweb Co., Ltd.
+  -
+  - This program is free software; you can redistribute it and/or
+  - modify it under the terms of the GNU Lesser General Public
+  - License as published by the Free Software Foundation; either
+  - version 3 of the License, or (at your option) any later version.
+  -
+  - This program is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  - Lesser General Public License for more details.
+  -
+  - You should have received a copy of the GNU Lesser General Public License
+  - along with this program; if not, write to the Free Software Foundation,
+  - Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+  - */
+  -->
+
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>数据总览</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="总览确定版3" transform="translate(-27.000000, -157.000000)" fill-rule="nonzero">
+            <g id="左侧导航" transform="translate(0.000000, 56.000000)">
+                <g id="编组" transform="translate(0.000000, 84.000000)">
+                    <g id="数据总览" transform="translate(27.000000, 17.000000)">
+                        <path d="M2.48220813,12.3480006 L7.00000494,7 L2.48150813,1.65270817 C3.74385466,0.58310705 5.34544821,-0.00269657349 7.00000494,0 C10.8661022,0 14,3.13390712 14,7 C14,10.8661017 10.8661022,14 7.00000494,14 C5.34577722,14.0027347 3.74446972,13.4171931 2.48220813,12.3480006 Z" id="路径" fill="#08153A"></path>
+                        <path d="M1.31810895,11.0901015 C0.458845565,9.89963178 -0.00246195912,8.46818204 0,7.00000439 C0,5.46700547 0.492109535,4.05020648 1.32790894,2.89800729 L4.91890641,7.00000439 L1.31810895,11.0901015 Z" id="路径" fill="#A4ADC5"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

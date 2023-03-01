@@ -1,0 +1,107 @@
+/*
+ *
+ * Copyright 2023 Talkweb Co., Ltd.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * /
+ */
+
+package com.devops.plugins.common.pojo;
+
+import org.apache.commons.lang3.StringUtils;
+
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
+/**
+ * 字符集工具类
+ *
+ */
+public class CharsetKit
+{
+    /** ISO-8859-1 */
+    public static final String ISO_8859_1 = "ISO-8859-1";
+    /** UTF-8 */
+    public static final String UTF_8 = "UTF-8";
+    /** GBK */
+    public static final String GBK = "GBK";
+
+    /** ISO-8859-1 */
+    public static final Charset CHARSET_ISO_8859_1 = Charset.forName(ISO_8859_1);
+    /** UTF-8 */
+    public static final Charset CHARSET_UTF_8 = Charset.forName(UTF_8);
+    /** GBK */
+    public static final Charset CHARSET_GBK = Charset.forName(GBK);
+
+    /**
+     * 转换为Charset对象
+     *
+     * @param charset 字符集，为空则返回默认字符集
+     * @return Charset
+     */
+    public static Charset charset(String charset)
+    {
+        return StringUtils.isEmpty(charset) ? Charset.defaultCharset() : Charset.forName(charset);
+    }
+
+    /**
+     * 转换字符串的字符集编码
+     *
+     * @param source 字符串
+     * @param srcCharset 源字符集，默认ISO-8859-1
+     * @param destCharset 目标字符集，默认UTF-8
+     * @return 转换后的字符集
+     */
+    public static String convert(String source, String srcCharset, String destCharset)
+    {
+        return convert(source, Charset.forName(srcCharset), Charset.forName(destCharset));
+    }
+
+    /**
+     * 转换字符串的字符集编码
+     *
+     * @param source 字符串
+     * @param srcCharset 源字符集，默认ISO-8859-1
+     * @param destCharset 目标字符集，默认UTF-8
+     * @return 转换后的字符集
+     */
+    public static String convert(String source, Charset srcCharset, Charset destCharset)
+    {
+        if (null == srcCharset)
+        {
+            srcCharset = StandardCharsets.ISO_8859_1;
+        }
+
+        if (null == destCharset)
+        {
+            destCharset = StandardCharsets.UTF_8;
+        }
+
+        if (StringUtils.isEmpty(source) || srcCharset.equals(destCharset))
+        {
+            return source;
+        }
+        return new String(source.getBytes(srcCharset), destCharset);
+    }
+
+    /**
+     * @return 系统字符集编码
+     */
+    public static String systemCharset()
+    {
+        return Charset.defaultCharset().name();
+    }
+}
+

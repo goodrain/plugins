@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ /*
+  ~ Copyright 2023 Talkweb Co., Ltd.
+  ~
+  ~ This program is free software; you can redistribute it and/or
+  ~ modify it under the terms of the GNU Lesser General Public
+  ~ License as published by the Free Software Foundation; either
+  ~ version 3 of the License, or (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  ~ Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public License
+  ~ along with this program; if not, write to the Free Software Foundation,
+  ~ Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+  ~ */
+  -->
+
+<project name="app" default="generwar" basedir=".">
+
+    <property name="build" value="${basedir}/build" />
+
+    <property name="build.class" value="${build}/classes"/>
+
+    <property name="src" value="${basedir}/src" />
+
+    <property name="webRoot" value="${basedir}/WebRoot"/>
+
+    <property name="lib" value="${webRoot}/WEB-INF/lib"/>
+
+    <!--定义CLASSPACH,编译时用到你外部加入的包-->
+
+    <path id="classpath">
+
+        <pathelement location="${src}" />
+
+        <fileset dir="${lib}" includes="***.jar" />
+
+    </path>
+
+
+    <!--创建一个临时目录-->
+
+    <target name="init" description="创建目录">
+
+        <echo message="创建目录--以执行"/>
+
+        <mkdir dir="${build.class}" />
+
+    </target>
+
+
+
+    <!--编译java源文件-->
+
+    <target name="compile" description="编译文件" depends="init">
+
+        <echo message="编译文件"/>
+
+        <javac srcdir="${src}" destdir="${build.class}">
+
+            <classpath refid="classpath" />
+
+            <compilerarg line="-encoding UTF-8"/>
+        </javac>
+
+    </target>
+
+
+
+    <!--打成WAR包-->
+
+    <target name="generwar" depends="compile">
+
+        <echo message="打成WAR"/>
+
+        <war destfile="app.war" webxml="${webRoot}/WEB-INF/web.xml" >
+
+            <fileset dir="WebRoot" ></fileset>
+
+            <lib dir="${lib}"/>
+
+            <classes dir="${build.class}"/>
+
+        </war>
+    </target>
+
+</project>
