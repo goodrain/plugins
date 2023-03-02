@@ -4,7 +4,9 @@ COPY . /app
 
 WORKDIR /app
 
-RUN yarn config set registry https://registry.npmmirror.com && \
+RUN sed -i 's/http:\/\/dl-cdn.alpinelinux.org/https:\/\/mirrors.aliyun.com/g' /etc/apk/repositories && \
+    apk update && apk add --no-cache autoconf && \
+    yarn config set registry https://registry.npmmirror.com && \
     yarn install && \
     yarn run build
 
