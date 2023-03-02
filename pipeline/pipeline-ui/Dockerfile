@@ -1,4 +1,4 @@
-FROM node:16.14.2 as BUILD
+FROM node:16.14.2 as builder
 
 COPY . /app
 
@@ -10,5 +10,5 @@ RUN yarn config set registry https://registry.npmmirror.com && \
 
 FROM nginx:alpine
 
-COPY --from=BUILD /app/dist /app
-COPY default.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/dist /app
+COPY --from=builder /app/default.conf /etc/nginx/conf.d/default.conf
