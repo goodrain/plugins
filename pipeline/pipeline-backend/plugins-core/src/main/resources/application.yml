@@ -5,9 +5,9 @@ spring:
     change-log: classpath:/db/liquibase/master.xml
   datasource:
     name: mysql_db
-    url: jdbc:mysql://${MYSQL_HOST:116.215.232.249}:${MYSQL_PORT:10031}/devops_plugins?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=FALSE&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
-    username: ${MYSQL_USERNAME:root}
-    password: ${MYSQL_PASSWORD:RH$7PrG&7%P49pv2}
+    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=FALSE&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PWD}
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 5
@@ -38,18 +38,18 @@ mybatis-plus:
 
 plugins:
   backend:
-    url : ${BACKEND_URL:http://uiwkij.natappfree.cc}
+    url : ${BACKEND_URL}
   rainbond:
-    url: ${RAINBOND_URL:http://47.104.161.96:7070/}
-    token: ${RAINBOND_TOKEN:0c95fbb69838ffe5c8e5eb67bf011e53c7fc6e86}
+    url: ${RAINBOND_URL}
+    token: ${RAINBOND_TOKEN}
   mybatis:
     show-sql: false
 
 harbor:
   enable: ${HARBOR_ENABLE:false}
-  url:  ${HARBOR_URL:https://devhub.wutong.talkweb.com.cn}
-  username: ${HARBOR_USERNAME:admin}
-  password: ${HARBOR_PASSWORD:DevHub2022!new66}
+  url:  ${HARBOR_URL}
+  username: ${HARBOR_USERNAME}
+  password: ${HARBOR_PASSWORD}
 
 jobs:
   cron:
