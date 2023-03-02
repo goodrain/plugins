@@ -1,12 +1,10 @@
-FROM node:16-alpine as BUILD
+FROM node:16.14.2 as BUILD
 
 COPY . /app
 
 WORKDIR /app
 
-RUN sed -i 's/http:\/\/dl-cdn.alpinelinux.org/https:\/\/mirrors.aliyun.com/g' /etc/apk/repositories && \
-    apk update && apk add --no-cache autoconf && \
-    yarn config set registry https://registry.npmmirror.com && \
+RUN yarn config set registry https://registry.npmmirror.com && \
     yarn install && \
     yarn run build
 
