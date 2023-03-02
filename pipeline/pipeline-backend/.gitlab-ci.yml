@@ -1,11 +1,6 @@
 stages:
 - build
 - docker
-variables:
-  ORG: wutong
-  REPOSITORY_USERNAME: cn-north-4@5RLGVPX17ERVGKALVGDB
-  REPOSITORY_PASSWORD: f2e6000ecfeb70c6c7714c612bd7f2bb22aef92b786d9fec727a19445412b864
-  REPOSITORY_URL: swr.cn-north-4.myhuaweicloud.com
 build:
   image: maven:3.6.3-openjdk-8
   stage: build
