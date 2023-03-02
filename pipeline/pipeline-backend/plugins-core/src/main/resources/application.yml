@@ -1,6 +1,6 @@
 spring:
   liquibase:
-    enabled: true
+    enabled: false
     drop-first: false
     change-log: classpath:/db/liquibase/master.xml
   datasource:
