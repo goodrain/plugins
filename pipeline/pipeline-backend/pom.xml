@@ -211,9 +211,9 @@
 <!--                    <outputChangeLogFile>temp/temp-changelog.xml</outputChangeLogFile>-->
 <!--                    <changeLogFile>src/main/resources/db/liquibase/master.xml</changeLogFile>-->
 <!--                    <driver>com.mysql.cj.jdbc.Driver</driver>-->
-<!--                    <url>jdbc:mysql://116.63.185.1:10000/wutong_demo?autoReconnect=true&amp;useSSL=FALSE&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true&amp;serverTimezone=Asia/Shanghai&amp;allowPublicKeyRetrieval=true</url>-->
-<!--                    <username>root</username>-->
-<!--                    <password>Admin123!</password>-->
+<!--                    <url>jdbc:mysql://xx:xx/wutong_demo?autoReconnect=true&amp;useSSL=FALSE&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true&amp;serverTimezone=Asia/Shanghai&amp;allowPublicKeyRetrieval=true</url>-->
+<!--                    <username>xx</username>-->
+<!--                    <password>xx</password>-->
 <!--                    <outputFileEncoding>UTF-8</outputFileEncoding>-->
 <!--                </configuration>-->
 <!--            </plugin>-->
