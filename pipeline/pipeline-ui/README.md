@@ -3,8 +3,6 @@
 <h1>Vue talkweb admin</h1>
 </div>
 
-https://wutong.talkweb.com.cn/kanban/doc.html#/home
-
 **English** | [中文](./README.zh-CN.md)
 
 ## Introduction
@@ -20,10 +18,6 @@ Vue Talkweb Admin is a free and open source middle and back-end template. Using 
 - **Mock Server** Built-in mock data scheme
 - **Authority** Built-in complete dynamic routing permission generation scheme.
 - **Component** Multiple commonly used components are encapsulated twice
-
-## Documentation
-
-[Document](https://git.talkweb.com.cn/pengbo23812/wutong-admin-builder-ui)
 
 ## Preparation
 
@@ -41,13 +35,13 @@ Vue Talkweb Admin is a free and open source middle and back-end template. Using 
 - Get the project code
 
 ```bash
-git clone https://git.talkweb.com.cn/pengbo23812/wutong-admin-builder-ui
+git clone your git url
 ```
 
 - Installation dependencies
 
 ```bash
-cd vue-talkweb-admin
+cd ypur project
 
 pnpm install
 
