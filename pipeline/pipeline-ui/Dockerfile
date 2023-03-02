@@ -1,4 +1,4 @@
-FROM node:16.14.2 AS BUILD
+FROM node:16-alpine as BUILD
 
 COPY . /app
 
