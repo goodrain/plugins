@@ -18,22 +18,6 @@
  * /
  */
 
-/*
- Navicat Premium Data Transfer
-
- Source Server         : 正式环境
- Source Server Type    : MySQL
- Source Server Version : 80032
- Source Host           : 116.205.232.249:10031
- Source Schema         : devops_plugins
-
- Target Server Type    : MySQL
- Target Server Version : 80032
- File Encoding         : 65001
-
- Date: 22/02/2023 11:34:22
-*/
-
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -313,23 +297,6 @@ CREATE TABLE `devops_custom_pipeline_stage`  (
 SET FOREIGN_KEY_CHECKS = 1;
 
 
-
-/*
- Navicat Premium Data Transfer
-
- Source Server         : 正式环境
- Source Server Type    : MySQL
- Source Server Version : 80032
- Source Host           : 116.205.232.249:10031
- Source Schema         : devops_plugins
-
- Target Server Type    : MySQL
- Target Server Version : 80032
- File Encoding         : 65001
-
- Date: 22/02/2023 11:34:40
-*/
-
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -412,22 +379,6 @@ CREATE TABLE `devops_sub_app_service`  (
 
 SET FOREIGN_KEY_CHECKS = 1;
 
-
-/*
- Navicat Premium Data Transfer
-
- Source Server         : 正式环境
- Source Server Type    : MySQL
- Source Server Version : 80032
- Source Host           : 116.205.232.249:10031
- Source Schema         : devops_plugins
-
- Target Server Type    : MySQL
- Target Server Version : 80032
- File Encoding         : 65001
-
- Date: 22/02/2023 11:34:54
-*/
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
