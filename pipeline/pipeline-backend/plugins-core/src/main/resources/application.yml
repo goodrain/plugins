@@ -5,9 +5,9 @@ spring:
     change-log: classpath:/db/liquibase/master.xml
   datasource:
     name: mysql_db
-    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=FALSE&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
-    username: ${MYSQL_USERNAME}
-    password: ${MYSQL_PWD}
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DATABASE:pipeline}?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=FALSE&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 5
