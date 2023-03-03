@@ -1,4 +1,4 @@
-FROM mysql:8.0.32
+FROM percona/percona-server:8.0.31
 
 COPY plugins.sql /docker-entrypoint-initdb.d/
 
