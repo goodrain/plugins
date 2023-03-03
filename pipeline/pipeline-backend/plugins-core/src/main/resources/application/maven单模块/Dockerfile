@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk8
+FROM openjdk:8-jdk
 
 RUN mkdir /apps
 
@@ -6,4 +6,4 @@ COPY app.jar /apps/app.jar
 
 WORKDIR /apps
 
-ENTRYPOINT ["java", "-Djava.awt.headless=true", "-jar",  "/apps/app.jar"]
+ENTRYPOINT ["java", "-jar", "/apps/app.jar"]

@@ -5,8 +5,6 @@ stages:
 
 build:
   image: maven:3.6.3-openjdk-8
-  tags:
-    - wutong-devops
   stage: build
   script:
     - mvn clean package -pl ${package_path} -am -DskipTests=true
@@ -18,10 +16,8 @@ build:
       - ${package_path}/target/${jar_name}.jar
 
 docker:
-  tags:
-    - wutong-devops
   stage: docker
-  image: swr.cn-north-4.myhuaweicloud.com/wutong/docker:19.03.13
+  image: docker:20.10
   script:
     - mkdir target
     - cp ${package_path}/target/${jar_name}.jar target/app.jar
@@ -33,8 +29,6 @@ docker:
       - ${{auto.build}} == "true"
 
 devops:
-  tags:
-    - wutong-devops
   stage: devops
   image: maven:3.6.3-openjdk-8
   script:

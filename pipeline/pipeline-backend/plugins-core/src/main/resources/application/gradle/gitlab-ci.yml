@@ -15,8 +15,6 @@ build:
   cache:
     paths:
       - .gradle/caches/modules-2/files-2.1
-  tags:
-    - wutong-devops
   only:
     variables:
       - ${{auto.build}} == "true"
@@ -25,7 +23,7 @@ build:
       - build/libs/app.jar
 
 docker:
-  image: swr.cn-north-4.myhuaweicloud.com/wutong/docker:19.03.13
+  image: docker:20.10
   stage: docker
   script:
     - docker login -u ${HARBOR_USERNAME} -p ${HARBOR_PASSWORD} ${HARBOR_SCHEMAL}//${HARBOR_URL}
@@ -39,8 +37,6 @@ docker:
             echo "上传应用服务版本失败"
             exit 1
             fi
-  tags:
-    - wutong-devops
   only:
     variables:
       - ${{auto.build}} == "true"

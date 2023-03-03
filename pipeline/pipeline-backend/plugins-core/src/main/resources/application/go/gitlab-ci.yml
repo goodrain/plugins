@@ -7,8 +7,6 @@ variables:
   GOPATH: $CI_PROJECT_DIR/.go
 
 build:
-  tags:
-    - wutong-devops
   image: golang:latest
   stage: build
   script:
@@ -27,9 +25,7 @@ build:
       - ${{auto.build}} == "true"
 
 docker:
-  tags:
-    - wutong-devops
-  image: swr.cn-north-4.myhuaweicloud.com/wutong/docker:19.03.13
+  image: docker:20.10
   stage: docker
   script:
     - docker login -u ${HARBOR_USERNAME} -p ${HARBOR_PASSWORD} ${HARBOR_SCHEMAL}//${HARBOR_URL}
@@ -40,9 +36,7 @@ docker:
       - ${{auto.build}} == "true"
 
  devops:
-    tags:
-      - wutong-devops
-    image: swr.cn-north-4.myhuaweicloud.com/wutong/docker:19.03.13
+    image: docker:20.10
     stage: devops
     script:
      - http_status_code=`curl -o /dev/null -s -m 10 --connect-timeout 10 -w %{http_code} "${GATEWAY}/hook/ci?gitlabProjectId=${CI_PROJECT_ID}&version=${DEVOPS_VERSION}&commit=${CI_COMMIT_SHA}&branch=${CI_COMMIT_REF_SLUG}"`
