@@ -367,7 +367,7 @@ public class AppServiceServiceImpl extends ServiceImpl<AppServiceMapper, AppServ
         //移除了一些界面配置，初始化值
         appServiceAddReq.setPipelineType(PlatFormConstraint.PIPELINE_TYPE_CUSTOM);
         appServiceAddReq.setServiceType(PlatFormConstraint.SERVICE_TYPE_EXTERNAL);
-        if(appServiceAddReq.getType().equals("true")) {
+        if(PlatFormConstraint.TRUE.equals(appServiceAddReq.getType())) {
             appServiceAddReq.setType(PlatFormConstraint.AppService_Template_Microservice);
         } else{
             appServiceAddReq.setType(PlatFormConstraint.OTHER);

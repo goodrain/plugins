@@ -79,4 +79,6 @@ public class PlatFormConstraint {
 
     public static final String BRANCH_MASTER = "master";
 
+    public static final String TRUE = "true";
+
 }
