@@ -7,8 +7,6 @@ build:
   stage: build
   script:
     - ant
-  tags:
-    - wutong-devops
   only:
     variables:
       - ${{auto.build}} == "true"
@@ -18,7 +16,7 @@ build:
 
 
 docker:
-  image: swr.cn-north-4.myhuaweicloud.com/wutong/docker:19.03.13
+  image: docker:20.10
   stage: docker
   script:
     - docker login -u ${HARBOR_USERNAME} -p ${HARBOR_PASSWORD} ${HARBOR_SCHEMAL}//${HARBOR_URL}
