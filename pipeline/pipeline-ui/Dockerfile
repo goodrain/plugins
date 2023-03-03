@@ -1,7 +1,14 @@
-FROM nginx:latest
+FROM node:16.14.2 as builder
 
-ADD default.conf /etc/nginx/conf.d/default.conf
+COPY . /app
 
-COPY dist/ /usr/share/nginx/html/
+WORKDIR /app
 
-CMD  nginx -g 'daemon off;'
+RUN yarn config set registry https://registry.npmmirror.com && \
+    yarn install && \
+    yarn run build
+
+FROM nginx:alpine
+
+COPY --from=builder /app/dist /app
+COPY --from=builder /app/default.conf /etc/nginx/conf.d/default.conf
