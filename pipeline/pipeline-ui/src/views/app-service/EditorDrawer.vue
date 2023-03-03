@@ -6,6 +6,7 @@
     :title="getTitle"
     width="40%"
     @ok="handleSubmit"
+    @visible-change="handleChange"
   >
     <BasicForm @register="registerForm">
       <template #serviceChildren="{ model, field }">
@@ -25,7 +26,7 @@
           </Col>
           <Col :span="2" class="pl-4" v-if="serviceChildren.length > 1">
             <MinusCircleOutlined
-              @click="removeChildren(index)"
+              @click="removeChildren(index, model, field)"
               style="font-size: 22px; padding-top: 5px"
             />
           </Col>
@@ -332,8 +333,9 @@
     });
   }
   // 移除子服务
-  function removeChildren(index) {
+  function removeChildren(index, model, field) {
     serviceChildren.value.splice(index, 1);
+    model[field] = JSON.stringify(serviceChildren.value);
   }
   // 子服务添加内容
   function setMavenChild(model, field) {
@@ -391,6 +393,12 @@
       title: '错误日志',
       content: test.log,
     });
+  }
+
+  function handleChange(visible: boolean) {
+    if (!visible) {
+      serviceChildren.value = [{ id: 0, code: '' }];
+    }
   }
 
   function handleSubmit() {

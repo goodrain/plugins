@@ -244,7 +244,6 @@ export const formSchema = ({ productTypeChange }): FormSchema[] => [
     field: 'type',
     label: '多模板',
     component: 'Switch',
-    required: true,
     itemProps: {
       //  extra: '您可以基于以下来源的应用服务模板创建一个新的应用服务',
     },
