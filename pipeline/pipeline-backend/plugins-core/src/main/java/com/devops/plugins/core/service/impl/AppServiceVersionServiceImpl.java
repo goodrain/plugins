@@ -81,6 +81,8 @@ public class AppServiceVersionServiceImpl extends ServiceImpl<AppServiceVersionM
 
     @Value("${plugins.rainbond.url}")
     private String paasUrl;
+    @Value("${plugins.rainbond.token}")
+    private String token;
 
     @Autowired
     private AppServiceVersionMapper appServiceVersionMapper;
@@ -194,6 +196,7 @@ public class AppServiceVersionServiceImpl extends ServiceImpl<AppServiceVersionM
         if (CollectionUtils.isNotEmpty(appServiceAutoDeployEntities)) {
             for (AppServiceAutoDeployEntity appServiceAutoDeployEntity : appServiceAutoDeployEntities) {
                 //未部署过，没有部署信息则无法自动部署
+                SecurityContextHolder.getLocalMap().put(HeaderParamsConstants.AUTHORIZATION, token);
                 DeployReq deployReq = new DeployReq();
                 deployReq.setAppServiceId(appServiceEntity.getId());
                 deployReq.setVersion(version);
