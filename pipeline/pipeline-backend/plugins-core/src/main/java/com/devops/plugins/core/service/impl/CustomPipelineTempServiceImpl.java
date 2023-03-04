@@ -126,7 +126,7 @@ public class CustomPipelineTempServiceImpl extends ServiceImpl<CustomPipelineTem
         //设置阶段
         if (CollectionUtils.isNotEmpty(stages)) {
             List<CustomPipelineStageResp> customPipelineStageResps = new ArrayList<>();
-            stages.stream().forEach(customPipelineTempStageEntity -> {
+            stages.stream().sorted(Comparator.comparing(CustomPipelineTempStageEntity::getStageOrder)).forEach(customPipelineTempStageEntity -> {
                 CustomPipelineStageResp customPipelineStageResp = CustomPipelineServiceImpl.getCustomPipelineStageVO(customPipelineTempStageEntity);
                 customPipelineStageResps.add(customPipelineStageResp);
             });
