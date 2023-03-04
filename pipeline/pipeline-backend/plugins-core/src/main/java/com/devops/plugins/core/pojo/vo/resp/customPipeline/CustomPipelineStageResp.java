@@ -33,7 +33,9 @@ import java.util.List;
 @Setter
 public class CustomPipelineStageResp {
 
+
     private String id;
+    private String tempId;
     @ApiModelProperty("阶段的镜像")
     private String image;
     @ApiModelProperty("阶段编码")

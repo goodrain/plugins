@@ -81,8 +81,6 @@ public class AppServiceVersionServiceImpl extends ServiceImpl<AppServiceVersionM
 
     @Value("${plugins.rainbond.url}")
     private String paasUrl;
-    @Value("${plugins.rainbond.token}")
-    private String token;
 
     @Autowired
     private AppServiceVersionMapper appServiceVersionMapper;
@@ -159,7 +157,7 @@ public class AppServiceVersionServiceImpl extends ServiceImpl<AppServiceVersionM
                     List<AppServiceConfigEntity> appServiceConfigEntities = appServiceConfigMapper.selectList(appServiceConfigEntityQueryWrapper);
                     if (CollectionUtils.isNotEmpty(appServiceConfigEntities)) {
                         User userR = userService.queryUserByUserId(Integer.parseInt(gitlabCommitEntities.get(0).getUserId()), appServiceEntity.getGitlabCodeUrl(), appServiceConfigEntities.get(0).getToken(), appServiceConfigEntities.get(0).getUsername(), appServiceConfigEntities.get(0).getPassword() == null ? null : Base64Util.getDecodeBase64(appServiceConfigEntities.get(0).getPassword()));
-                        if (userR!=null) {
+                        if (userR != null) {
                             appServiceVersionEntity.setCommitter(userR.getName());
                         }
                     }
@@ -196,7 +194,6 @@ public class AppServiceVersionServiceImpl extends ServiceImpl<AppServiceVersionM
         if (CollectionUtils.isNotEmpty(appServiceAutoDeployEntities)) {
             for (AppServiceAutoDeployEntity appServiceAutoDeployEntity : appServiceAutoDeployEntities) {
                 //未部署过，没有部署信息则无法自动部署
-                SecurityContextHolder.getLocalMap().put(HeaderParamsConstants.AUTHORIZATION, token);
                 DeployReq deployReq = new DeployReq();
                 deployReq.setAppServiceId(appServiceEntity.getId());
                 deployReq.setVersion(version);
@@ -225,7 +222,7 @@ public class AppServiceVersionServiceImpl extends ServiceImpl<AppServiceVersionM
 
         List<AppServiceComponentEntity> existComponents;
         String type = customPipelineTempService.getPiPelineTempName(appServiceId, null);
-        if (type != null && type.equals(PlatFormConstraint.AppService_Template_Microservice)){
+        if (type != null && type.equals(PlatFormConstraint.AppService_Template_Microservice)) {
             String module = version.split(String.format("-%s", DateUtil.getYear(appServiceVersionEntities.get(0).getCreateTime())))[0];
             LambdaQueryWrapper<SubAppServiceEntity> subAppServiceQueryWrapper = new LambdaQueryWrapper<>();
             subAppServiceQueryWrapper.eq(SubAppServiceEntity::getAppServiceId, appServiceId);
@@ -239,19 +236,23 @@ public class AppServiceVersionServiceImpl extends ServiceImpl<AppServiceVersionM
             existComponentQueryWrapper.eq(AppServiceComponentEntity::getRegionCode, regionName);
             existComponents = appServiceComponentMapper.selectList(existComponentQueryWrapper);
 
-         } else {
+        } else {
             LambdaQueryWrapper<AppServiceComponentEntity> existComponentQueryWrapper = new LambdaQueryWrapper<>();
             existComponentQueryWrapper.eq(AppServiceComponentEntity::getAppServiceId, appServiceEntity.getId());
             existComponentQueryWrapper.eq(AppServiceComponentEntity::getRegionCode, regionName);
             existComponents = appServiceComponentMapper.selectList(existComponentQueryWrapper);
         }
         //如果应用服务没部署过，则选择应用新建组件
-        if(CollectionUtils.isNotEmpty(existComponents)) {
-            return new ArrayList<>();
-        }
         List<RainbondApp> rainbondApps = paasClient.listApps(teamId, regionName);
-        if(CollectionUtils.isEmpty(rainbondApps)) {
-            return new ArrayList<>();
+        if (CollectionUtils.isEmpty(rainbondApps)) {
+            throw new BusinessRuntimeException("团队下无可用的应用,请先创建应用");
+        }
+        if (CollectionUtils.isNotEmpty(existComponents)) {
+            if (rainbondApps.stream().noneMatch(rainbondApp -> rainbondApp.getAppId().equals(existComponents.get(0).getPaasAppId()))) {
+                return ConvertUtils.convertList(rainbondApps, AppResp.class);
+            } else {
+                return new ArrayList<>();
+            }
         }
         return ConvertUtils.convertList(rainbondApps, AppResp.class);
     }
@@ -269,6 +270,7 @@ public class AppServiceVersionServiceImpl extends ServiceImpl<AppServiceVersionM
         String appId = null;
         List<AppServiceDeployHistoryEntity> deployHistoryEntities;
         AppServiceComponentEntity appServiceComponentEntity = null;
+        List<AppServiceComponentEntity> existComponents;
         AppServiceEntity appServiceEntity = appServiceMapper.selectById(deployReq.getAppServiceId());
         if (appServiceEntity == null) {
             throw new BusinessRuntimeException("应用服务不存在");
@@ -285,7 +287,7 @@ public class AppServiceVersionServiceImpl extends ServiceImpl<AppServiceVersionM
 
         //根据应用服务类型获取相关值
         String type = customPipelineTempService.getPiPelineTempName(deployReq.getAppServiceId(), null);
-        if (type!=null&&type.equals(PlatFormConstraint.AppService_Template_Microservice)) {
+        if (type != null && type.equals(PlatFormConstraint.AppService_Template_Microservice)) {
             String module = deployReq.getVersion().split(String.format("-%s", DateUtil.getYear(appServiceVersionEntities.get(0).getCreateTime())))[0];
             LambdaQueryWrapper<SubAppServiceEntity> subAppServiceQueryWrapper = new LambdaQueryWrapper<>();
             subAppServiceQueryWrapper.eq(SubAppServiceEntity::getAppServiceId, deployReq.getAppServiceId());
@@ -307,7 +309,7 @@ public class AppServiceVersionServiceImpl extends ServiceImpl<AppServiceVersionM
             LambdaQueryWrapper<AppServiceComponentEntity> existComponentQueryWrapper = new LambdaQueryWrapper<>();
             existComponentQueryWrapper.eq(AppServiceComponentEntity::getSubAppServiceId, subAppServiceEntities.get(0).getId());
             existComponentQueryWrapper.eq(AppServiceComponentEntity::getRegionCode, deployReq.getRegionCode());
-            List<AppServiceComponentEntity> existComponents = appServiceComponentMapper.selectList(existComponentQueryWrapper);
+            existComponents = appServiceComponentMapper.selectList(existComponentQueryWrapper);
             if (CollectionUtils.isEmpty(existComponents)) {
                 appServiceComponentEntity = new AppServiceComponentEntity();
                 appServiceComponentEntity.setId(UUID.randomUUID().toString().replace("-", ""));
@@ -318,6 +320,7 @@ public class AppServiceVersionServiceImpl extends ServiceImpl<AppServiceVersionM
                 appServiceComponentEntity.setTeamCode(appServiceEntity.getTeamCode());
                 appId = deployReq.getAppId();
             } else {
+                appServiceComponentEntity = existComponents.get(0);
                 componentCode = existComponents.get(0).getPaasComponentId();
                 appId = existComponents.get(0).getPaasAppId();
             }
@@ -329,7 +332,7 @@ public class AppServiceVersionServiceImpl extends ServiceImpl<AppServiceVersionM
             LambdaQueryWrapper<AppServiceComponentEntity> existComponentQueryWrapper = new LambdaQueryWrapper<>();
             existComponentQueryWrapper.eq(AppServiceComponentEntity::getAppServiceId, appServiceEntity.getId());
             existComponentQueryWrapper.eq(AppServiceComponentEntity::getRegionCode, deployReq.getRegionCode());
-            List<AppServiceComponentEntity> existComponents = appServiceComponentMapper.selectList(existComponentQueryWrapper);
+            existComponents = appServiceComponentMapper.selectList(existComponentQueryWrapper);
             if (CollectionUtils.isEmpty(existComponents)) {
                 appServiceComponentEntity = new AppServiceComponentEntity();
                 appServiceComponentEntity.setId(UUID.randomUUID().toString().replace("-", ""));
@@ -340,6 +343,7 @@ public class AppServiceVersionServiceImpl extends ServiceImpl<AppServiceVersionM
                 appServiceComponentEntity.setTeamCode(appServiceEntity.getTeamCode());
                 appId = deployReq.getAppId();
             } else {
+                appServiceComponentEntity = existComponents.get(0);
                 componentCode = existComponents.get(0).getPaasComponentId();
                 appId = existComponents.get(0).getPaasAppId();
             }
@@ -354,7 +358,7 @@ public class AppServiceVersionServiceImpl extends ServiceImpl<AppServiceVersionM
         String imageusername;
         String imagepassword;
 
-        if(harborConfig.getEnable()) {
+        if (harborConfig.getEnable()) {
             imageusername = harborConfig.getUsername();
             imagepassword = harborConfig.getPassword();
         } else {
@@ -362,35 +366,33 @@ public class AppServiceVersionServiceImpl extends ServiceImpl<AppServiceVersionM
             customPipelineRelationEntityLambdaQueryWrapper.eq(CustomPipelineRelationEntity::getAppServiceId, appServiceEntity.getId());
             List<CustomPipelineRelationEntity> customPipelineRelationEntities = customPipelineRelationMapper.selectList(customPipelineRelationEntityLambdaQueryWrapper);
 
-            LambdaQueryWrapper<CustomPipelineEnvsEntity>  customPipelineEnvsEntityLambdaQueryWrapper = new LambdaQueryWrapper<>();
+            LambdaQueryWrapper<CustomPipelineEnvsEntity> customPipelineEnvsEntityLambdaQueryWrapper = new LambdaQueryWrapper<>();
             customPipelineEnvsEntityLambdaQueryWrapper.eq(CustomPipelineEnvsEntity::getPipelineId, customPipelineRelationEntities.get(0).getPipelineId());
-            List<CustomPipelineEnvsEntity> customPipelineEnvsEntities =  customPipelineEnvsMapper.selectList(customPipelineEnvsEntityLambdaQueryWrapper);
+            List<CustomPipelineEnvsEntity> customPipelineEnvsEntities = customPipelineEnvsMapper.selectList(customPipelineEnvsEntityLambdaQueryWrapper);
 
 
-
-            imageusername =  customPipelineEnvsEntities.stream().filter(customPipelineEnvsEntity -> customPipelineEnvsEntity.getEnvKey().contains("USERNAME")).findFirst().orElse(new CustomPipelineEnvsEntity()).getEnvValue();
+            imageusername = customPipelineEnvsEntities.stream().filter(customPipelineEnvsEntity -> customPipelineEnvsEntity.getEnvKey().contains("USERNAME")).findFirst().orElse(new CustomPipelineEnvsEntity()).getEnvValue();
             imagepassword = customPipelineEnvsEntities.stream().filter(customPipelineEnvsEntity -> customPipelineEnvsEntity.getEnvKey().contains("PASSWORD")).findFirst().orElse(new CustomPipelineEnvsEntity()).getEnvValue();
         }
 
-        if (CollectionUtils.isEmpty(deployHistoryEntities)||deployHistoryEntities.stream().noneMatch(appServiceDeployHistoryEntity1 -> appServiceDeployHistoryEntity1.getStatus().equals(PlatFormConstraint.DEPLOY_SUCCESS))) {
-
+        if (StringUtils.isNotBlank(deployReq.getAppId())) {
 
             //没有部署记录新增组件构建组件
-            RainbondServiceAdd serviceAdd  = new RainbondServiceAdd();
-            serviceAdd.setGroupId(Integer.parseInt(appId));
+            RainbondServiceAdd serviceAdd = new RainbondServiceAdd();
+            serviceAdd.setGroupId(Integer.parseInt(deployReq.getAppId()));
             serviceAdd.setIsDeploy(true);
             serviceAdd.setServiceCname(componentName);
             serviceAdd.setK8sComponentName(componentName);
             serviceAdd.setImage(appServiceVersionEntities.get(0).getImage());
             serviceAdd.setUsername(imageusername);
             serviceAdd.setPassword(imagepassword);
-            MutablePair<Boolean, String> result = paasClient.serviceAdd(appServiceEntity.getTeamCode(), deployReq.getRegionCode(), appId,  serviceAdd);
+            MutablePair<Boolean, String> result = paasClient.serviceAdd(appServiceEntity.getTeamCode(), deployReq.getRegionCode(), deployReq.getAppId(), serviceAdd);
             //获取组件组件详情
             if (result.getLeft()) {
                 appServiceDeployHistoryEntity.setStatus(PlatFormConstraint.DEPLOY_SUCCESS);
-                RainbondService rainbondService = paasClient.serviceGet(appServiceEntity.getTeamCode(), deployReq.getRegionCode(), appId, result.getRight());
+                RainbondService rainbondService = paasClient.serviceGet(appServiceEntity.getTeamCode(), deployReq.getRegionCode(), deployReq.getAppId(), result.getRight());
                 appServiceComponentEntity.setPaasComponentId(rainbondService.getServiceAlias());
-                paasUrl = paasUrl.endsWith("/")?paasUrl:paasUrl+"/";
+                paasUrl = paasUrl.endsWith("/") ? paasUrl : paasUrl + "/";
                 appServiceDeployHistoryEntity.setDeployInfoUrl(String.format("%s#/team/%s/region/%s/components/%s/overview", paasUrl, appServiceComponentEntity.getTeamCode(), deployReq.getRegionCode(), rainbondService.getServiceAlias()));
                 appServiceDeployHistoryEntity.setTeamCode(appServiceComponentEntity.getTeamCode());
                 appServiceDeployHistoryEntity.setComponentCode(rainbondService.getServiceAlias());
@@ -398,32 +400,62 @@ public class AppServiceVersionServiceImpl extends ServiceImpl<AppServiceVersionM
                 appServiceDeployHistoryEntity.setStatus(PlatFormConstraint.DEPLOY_FAILED);
                 appServiceDeployHistoryEntity.setDescription(result.getRight());
             }
+            if(CollectionUtils.isNotEmpty(existComponents)) {
+                appServiceComponentEntity.setPaasAppId(deployReq.getAppId());
+                appServiceComponentMapper.updateById(appServiceComponentEntity);
+            } else {
+                appServiceComponentMapper.insert(appServiceComponentEntity);
+            }
         } else {
             appServiceDeployHistoryEntity.setDeployInfoUrl(deployHistoryEntities.get(0).getDeployInfoUrl());
             appServiceDeployHistoryEntity.setTeamCode(deployHistoryEntities.get(0).getTeamCode());
             appServiceDeployHistoryEntity.setComponentCode(deployHistoryEntities.get(0).getComponentCode());
-            //有部署记录构建组件
-            RainbondServiceBuild serviceBuildReq = new RainbondServiceBuild();
-            serviceBuildReq.setDockerImage(appServiceVersionEntities.get(0).getImage());
-            serviceBuildReq.setRegistryUser(imageusername);
-            serviceBuildReq.setRegistryPassword(imagepassword);
-            MutablePair<Boolean, String> result = paasClient.serviceBuild(appServiceEntity.getTeamCode(), deployReq.getRegionCode(), appId, componentCode, serviceBuildReq);
-            if (result.getLeft()) {
-                appServiceDeployHistoryEntity.setStatus(PlatFormConstraint.DEPLOY_SUCCESS);
+
+            //判断组件是不是被删除，被删除重新创建
+            List<RainbondService> rainbondServices = paasClient.serviceGet(appServiceEntity.getTeamCode(), deployReq.getRegionCode(), appId);
+            if(CollectionUtils.isEmpty(rainbondServices)||rainbondServices.stream().noneMatch(rainbondService -> rainbondService.getServiceAlias().equals(existComponents.get(0).getPaasComponentId()))) {
+                //没有部署记录新增组件构建组件
+                RainbondServiceAdd serviceAdd = new RainbondServiceAdd();
+                serviceAdd.setGroupId(Integer.parseInt(appId));
+                serviceAdd.setIsDeploy(true);
+                serviceAdd.setServiceCname(componentName);
+                serviceAdd.setK8sComponentName(componentName);
+                serviceAdd.setImage(appServiceVersionEntities.get(0).getImage());
+                serviceAdd.setUsername(imageusername);
+                serviceAdd.setPassword(imagepassword);
+                MutablePair<Boolean, String> result = paasClient.serviceAdd(appServiceEntity.getTeamCode(), deployReq.getRegionCode(), appId, serviceAdd);
+                //获取组件组件详情
+                if (result.getLeft()) {
+                    appServiceDeployHistoryEntity.setStatus(PlatFormConstraint.DEPLOY_SUCCESS);
+                    RainbondService rainbondService = paasClient.serviceGet(appServiceEntity.getTeamCode(), deployReq.getRegionCode(), appId, result.getRight());
+                    appServiceComponentEntity.setPaasComponentId(rainbondService.getServiceAlias());
+                    paasUrl = paasUrl.endsWith("/") ? paasUrl : paasUrl + "/";
+                    appServiceDeployHistoryEntity.setDeployInfoUrl(String.format("%s#/team/%s/region/%s/components/%s/overview", paasUrl, appServiceComponentEntity.getTeamCode(), deployReq.getRegionCode(), rainbondService.getServiceAlias()));
+                    appServiceDeployHistoryEntity.setTeamCode(appServiceComponentEntity.getTeamCode());
+                    appServiceDeployHistoryEntity.setComponentCode(rainbondService.getServiceAlias());
+                } else {
+                    appServiceDeployHistoryEntity.setStatus(PlatFormConstraint.DEPLOY_FAILED);
+                    appServiceDeployHistoryEntity.setDescription(result.getRight());
+                }
+                appServiceComponentMapper.updateById(appServiceComponentEntity);
             } else {
-                appServiceDeployHistoryEntity.setStatus(PlatFormConstraint.DEPLOY_FAILED);
-                appServiceDeployHistoryEntity.setDescription(result.getRight());
+                //有部署记录构建组件
+                RainbondServiceBuild serviceBuildReq = new RainbondServiceBuild();
+                serviceBuildReq.setDockerImage(appServiceVersionEntities.get(0).getImage());
+                serviceBuildReq.setRegistryUser(imageusername);
+                serviceBuildReq.setRegistryPassword(imagepassword);
+                MutablePair<Boolean, String> result = paasClient.serviceBuild(appServiceEntity.getTeamCode(), deployReq.getRegionCode(), appId, componentCode, serviceBuildReq);
+                if (result.getLeft()) {
+                    appServiceDeployHistoryEntity.setStatus(PlatFormConstraint.DEPLOY_SUCCESS);
+                } else {
+                    appServiceDeployHistoryEntity.setStatus(PlatFormConstraint.DEPLOY_FAILED);
+                    appServiceDeployHistoryEntity.setDescription(result.getRight());
+                }
             }
-
-
         }
 
-
-        if (appServiceComponentEntity != null) {
-            appServiceComponentMapper.insert(appServiceComponentEntity);
-        }
         //新增部署历史
-        if(StringUtils.isNotBlank(deployReq.getUsername())) {
+        if (StringUtils.isNotBlank(deployReq.getUsername())) {
             appServiceDeployHistoryEntity.setCreateBy(deployReq.getUsername());
         } else {
             appServiceDeployHistoryEntity.setCreateBy(paasClient.getNickName());

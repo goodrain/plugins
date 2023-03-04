@@ -41,7 +41,6 @@ plugins:
     url : ${BACKEND_URL}
   rainbond:
     url: ${RAINBOND_URL}
-    token: ${RAINBOND_TOKEN}
   mybatis:
     show-sql: false
 

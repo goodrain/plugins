@@ -25,6 +25,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
+import com.devops.plugins.common.constraint.GitlabCIConstraint;
 import com.devops.plugins.common.constraint.PlatFormConstraint;
 import com.devops.plugins.common.exception.BusinessRuntimeException;
 import com.devops.plugins.common.pojo.ReqPage;
@@ -186,7 +187,7 @@ public class CustomPipelineServiceImpl extends ServiceImpl<CustomPipelineMapper,
         customPipeline.setId(UUID.randomUUID().toString().replace("-", ""));
         customPipeline.setName(customPipelineDetailReq.getName());
         customPipeline.setTeamId(customPipelineDetailReq.getTeamId());
-        customPipeline.setTempId(customPipelineDetailReq.getTempId());
+        customPipeline.setTempId(StringUtils.isBlank(customPipelineDetailReq.getTempId())?customPipelineDetailReq.getStages().get(0).getTempId(): customPipelineDetailReq.getTempId());
 
 
         //插入自定义流水线环境变量
@@ -401,6 +402,7 @@ public class CustomPipelineServiceImpl extends ServiceImpl<CustomPipelineMapper,
             List<CustomPipelineStageResp> customPipelineStageResps = new ArrayList<>();
             stages.stream().sorted(Comparator.comparing(CustomPipelineStageEntity::getStageOrder)).forEach(customPipelineStageEntity -> {
                 CustomPipelineStageResp customPipelineStageResp = getCustomPipelineStageVO(customPipelineStageEntity);
+                customPipelineStageResp.setTempId(customPipeline.getTempId());
                 if (customPipelineStageResp.getCache() != null) {
                     cache.addAll(customPipelineStageResp.getCache().getPaths());
                 }

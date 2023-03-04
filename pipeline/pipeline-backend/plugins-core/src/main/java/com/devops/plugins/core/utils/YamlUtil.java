@@ -233,10 +233,5 @@ public class YamlUtil {
 
     private static void setScript(CustomPipelineStageResp customPipelineStageResp, CiJob ciJob) {
         ciJob.setScript(customPipelineStageResp.getScript());
-        if (customPipelineStageResp.getCode().equals("docker")) {
-            List<String> scripts = ciJob.getScript();
-            ciJob.getScript().add(GitlabCIConstraint.DEVOPS_HTTP_REQUEST_RESULT);
-            ciJob.setScript(scripts);
-        }
     }
 }
