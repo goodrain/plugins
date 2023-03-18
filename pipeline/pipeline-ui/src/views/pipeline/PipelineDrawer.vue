@@ -94,7 +94,7 @@
     list.value = res.map((item) => {
       return {
         ...item,
-        icon: ['War', 'gradle'].includes(item.name) ? 'maven单模块' : item.name.toLocaleLowerCase(),
+        icon: ['War', 'Gradle'].includes(item.name) ? 'maven单模块' : item.name.toLocaleLowerCase(),
       };
     });
   });
