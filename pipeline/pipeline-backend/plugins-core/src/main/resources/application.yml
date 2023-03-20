@@ -5,7 +5,7 @@ spring:
     change-log: classpath:/db/liquibase/master.xml
   datasource:
     name: mysql_db
-    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DATABASE:pipeline}?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=FALSE&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://${DB_HOST:127.0.0.1}:${DB_PORT:3306}/${DATABASE:pipeline}?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=FALSE&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:root}
     type: com.alibaba.druid.pool.DruidDataSource

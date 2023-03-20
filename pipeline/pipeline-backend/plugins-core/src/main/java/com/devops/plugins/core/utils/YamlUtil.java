@@ -233,5 +233,10 @@ public class YamlUtil {
 
     private static void setScript(CustomPipelineStageResp customPipelineStageResp, CiJob ciJob) {
         ciJob.setScript(customPipelineStageResp.getScript());
+        if (customPipelineStageResp.getCode().equals("version")) {
+            List<String> scripts = ciJob.getScript();
+            ciJob.getScript().add(0, GitlabCIConstraint.IMAGE);
+            ciJob.setScript(scripts);
+        }
     }
 }

@@ -38,6 +38,8 @@ public class GitlabCIConstraint {
 
     public static final String DOCKER_PUSH = "docker push ${HARBOR_URL}/${PROJECT_SET_CODE}-${PROJECT_CODE}/${MODULE}:${DEVOPS_VERSION}";
 
+    public static final String IMAGE = "export IMAGE=${REPOSITORY_URL}/${ORG}/${MODULE}:${DEVOPS_VERSION}";
+
     public static final String DEVOPS_HTTP_REQUEST_RESULT = "http_status_code=`curl -o /dev/null -s -m 10 --connect-timeout 10 -w %{http_code} \"${GATEWAY}/hook/ci?gitlabProjectId=${CI_PROJECT_ID}&version=${DEVOPS_VERSION}&commit=${CI_COMMIT_SHA}&branch=${CI_COMMIT_REF_SLUG}&module=${SUB_SERVICE}&image=${IMAGE}\"`\n" +
             "      if [ \"$http_status_code\" != \"200\" ]; then\n" +
             "      echo $http_status_code\n" +
