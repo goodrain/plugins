@@ -37,7 +37,7 @@ public class PlatFormConstraint {
 
     public static final String SERVICE_PATTERN = "^[a-z][a-z0-9-]*$";
 
-    public static final String PROJECT_URL_PATTRRN = "^(http|https)://([\\w-]+\\.)+[\\w-]+(/[\\w-./?%&=]*)?git$";
+    public static final String PROJECT_URL_PATTRRN = "^(http|https)://([\\w-]+\\.)+([\\w-]+\\:?)+[\\w-]+(/[\\w-./?%&=]*)?git$";
 
     public static final Integer GITLAB_ROOT_USER_ID = 1;
 
